@@ -30,6 +30,10 @@ Route::get('admission', function () {
     return view('admissions.index');
 });
 
+Route::get('academics', function () {
+    return view('academics');
+});
+
 Route::get('login', function () {
     return view('login');
 })->middleware('auth');

@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
+
 class AdmissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         //$Admission = Admission::all(); //Admission in Admission::all(); -> is the model name from models folder.
@@ -63,17 +62,6 @@ class AdmissionController extends Controller
             "strand" => "required",
             "confirmationCheck" => "required",
         ]);
-        /*  // Generate and send OTP
-           $otp = rand(100000, 999999);
-           $mobileNumber = $request->input('mobile_number');
-           $this->sendOtp($mobileNumber, $otp);
-
-           // Store the validated data in session
-           Session::put('admission', $validatedData);
-           Session::put('mobile_number', $mobileNumber);
-
-           return view('verify-otp', compact('mobileNumber'));
-        */
 
         // Store the uploaded PSA image in the 'public/images' directory
         if ($request->hasFile('psa')) {
@@ -172,49 +160,4 @@ class AdmissionController extends Controller
         // Optionally, redirect to a different route after successful deletion.
         return redirect('/view-table');
     }
-
-    public function verifyOtp(Request $request)
-    {
-        $inputOtp = $request->input('otp');
-        $storedOtp = session('otp'); // OTP sent to the user
-
-        if ($inputOtp == $storedOtp) {
-            // Retrieve the stored admission data from session
-            $validatedData = Session::get('admission');
-            // Create the Admission record
-            $admission = Admission::create($validatedData);
-
-            // Optionally, you can store additional data in the database
-            // based on your business logic
-
-            // Clear the stored session data
-            Session::forget('admission');
-            Session::forget('mobile_number');
-
-            return redirect()->back()->with('success', 'Success!! Your admission was submitted!!');
-        } else {
-            return back()->withErrors(['otp' => 'Invalid OTP.']);
-        }
-    }
-
-    /*   private function sendOtp($mobileNumber, $otp)
-       {
-       $sid = getenv("TWILIO_SID");
-       $token = getenv("TWILIO_TOKEN");
-       $twilioNumber = getenv("TWILIO_FROM");
-
-       $client = new Client($sid, $token);
-       $message = "Your OTP for admission is: $otp";
-
-       $client->messages->create(
-           $mobileNumber,
-           [
-               'from' => $twilioNumber,
-               'body' => $message,
-           ]
-       );
-
-       session(['otp' => $otp]); // Store OTP in session for verification
-       }
-       */
 }
