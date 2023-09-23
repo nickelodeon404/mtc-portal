@@ -13,17 +13,39 @@
                     <thead>
                         <tr>
                             <th>Subject Name</th>
-                            <th>Initial Grade</th>
-                            <th>Quarterly Grade</th>
-                            <th>Average</th>
+                            <th>Quarter</th>
+                            <th>Grade</th>
+                            {{-- <th>Average</th> --}}
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($grades as $grade)
                         <tr>
-                            <td>subject name</td>
-                            <td>initial grade</td>
-                            <td>quarterly_grade</td>
-                            <td>average</td>
+                            @php
+                                // echo $ave;
+                                    $ave = ($ave + $grade->grade) ;
+                                @endphp
+                            <td>{{$grade->name}}</td>
+                            <td>{{$grade->quarter}}</td>
+                            <td>{{$grade->grade}}</td>
+                            {{-- <td>
+                                
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                        <tr>
+                            <td>Total Average: </td>
+                            <td></td>
+                            <td>
+                                {{ $ave / count($grades)}}
+                                {{-- @php
+                                // echo $ave;
+                                    $ave = ($ave + $grade->grade) ;
+                                    if ($loop->index == count($grades)-1) {
+                                        echo $ave / count($grades);
+                                    }
+                                @endphp --}}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

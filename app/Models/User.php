@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasOne(User::class, 'users_id');
     }
     public function teacherLoad(){
-        return $this->hasMany(SubjectLoad::class, 'teachers_id');
+        return $this->hasMany(SubjectLoad::class, 'faculties_id');
     }
     public function studentLoad(){
         return $this->hasMany(SubjectLoad::class, 'students_id');

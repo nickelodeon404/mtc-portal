@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('subject_loads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('students_id')->constrained('users')->onUpdate('cascade');
-            $table->foreignId('teachers_id')->constrained('users')->onUpdate('cascade');
-            $table->foreignId('subjects_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('faculties_id')->constrained('users')->onUpdate('cascade');
+            $table->foreignId('subjects_id')->constrained('subject_loads')->onUpdate('cascade');
             $table->timestamps();
         });
     }

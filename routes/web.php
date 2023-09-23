@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GradeController;
+use App\Http\Controllers\EnrolledController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\EnrollmentController;
-use App\Http\Controllers\EnrolledController;
 use App\Http\Controllers\DocumentTypeController;
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +53,7 @@ Route::get('academic', function () {
     return view('students.academic.index');
 })->middleware('student');
 
-Route::get('grades', function () {
-    return view('students.grades.index');
-})->middleware('student');
+Route::get('grades', [GradeController::class, 'studentGrade'])->middleware('student');
 
 Route::get('faculty', function () {
     return view('faculty.index');
